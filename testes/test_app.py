@@ -16,7 +16,7 @@ def test_inicio():
 
 def test_pet_detectado():
 
-    mqtt.pet_detectado = True
+    app.mqtt.consultar_pet = lambda: True
 
     cliente = app.app.test_client()
 
@@ -27,10 +27,9 @@ def test_pet_detectado():
     assert resposta.status_code == 200
     assert dados["pet_detectado"] == True
 
-
 def test_pet_nao_detectado():
 
-    mqtt.pet_detectado = False
+    app.mqtt.consultar_pet = lambda: False
 
     cliente = app.app.test_client()
 

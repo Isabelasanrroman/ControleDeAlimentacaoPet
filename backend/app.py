@@ -49,8 +49,10 @@ def recusar():
 @app.route("/pet", methods=["GET"])
 def verificar_pet():
 
+    estado = mqtt.consultar_pet()
+
     return jsonify({
-        "pet_detectado": mqtt.pet_detectado
+        "pet_detectado": estado
     })
 
 

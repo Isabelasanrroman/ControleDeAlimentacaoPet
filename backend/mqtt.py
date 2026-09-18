@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import threading
 
 BROKER = "broker.hivemq.com"
 PORTA = 1883
@@ -9,57 +10,80 @@ TOPICO_COMANDO = "controle-pet/isabela/comando"
 pet_detectado = False
 
 
-def ao_conectar(cliente, dados, flags, codigo):
-
-    print("Flask conectado ao MQTT!")
-
-    cliente.subscribe(TOPICO_PET)
-
-    print("Escutando o topico:", TOPICO_PET)
+def criar_cliente():
+    cliente = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    return cliente
 
 
-def ao_receber_mensagem(cliente, dados, mensagem):
+def consultar_pet():
 
     global pet_detectado
 
-    texto = mensagem.payload.decode()
+    estado = {
+        "valor": False
+    }
 
-    print("Mensagem recebida:", texto)
+    mensagem_recebida = threading.Event()
 
-    if mensagem.topic == TOPICO_PET:
+    def receber_mensagem(cliente, dados, mensagem):
 
-        if texto == "pet_detectado":
+        texto = mensagem.payload.decode()
 
-            pet_detectado = True
+        print("Mensagem recebida:", texto)
 
-            print("PET DETECTADO PELO FLASK!")
+        if mensagem.topic == TOPICO_PET:
 
+            if texto == "pet_detectado":
+                estado["valor"] = True
 
-        if texto == "pet_saiu":
+            if texto == "pet_saiu":
+                estado["valor"] = False
 
-            pet_detectado = False
+            mensagem_recebida.set()
 
-            print("PET SAIU DA AREA!")
+    cliente = criar_cliente()
 
-cliente_mqtt = mqtt.Client()
+    cliente.on_message = receber_mensagem
 
-cliente_mqtt.on_connect = ao_conectar
-cliente_mqtt.on_message = ao_receber_mensagem
+    cliente.connect(BROKER, PORTA, 10)
 
+    cliente.subscribe(TOPICO_PET)
 
-def iniciar_mqtt():
+    cliente.loop_start()
 
-    cliente_mqtt.connect(BROKER, PORTA)
+    mensagem_recebida.wait(timeout=2)
 
-    cliente_mqtt.loop_start()
+    cliente.loop_stop()
+
+    cliente.disconnect()
+
+    pet_detectado = estado["valor"]
+
+    return pet_detectado
 
 
 def enviar_comando(comando):
 
-    cliente = mqtt.Client()
+    cliente = criar_cliente()
 
-    cliente.connect(BROKER, PORTA)
+    cliente.connect(BROKER, PORTA, 10)
 
-    cliente.publish(TOPICO_COMANDO, comando)
+    cliente.loop_start()
+
+    mensagem = cliente.publish(
+        TOPICO_COMANDO,
+        comando
+    )
+
+    mensagem.wait_for_publish()
+
+    cliente.loop_stop()
 
     cliente.disconnect()
+
+    print("Comando enviado:", comando)
+
+
+def iniciar_mqtt():
+
+    print("MQTT configurado para conexoes sob demanda.")
