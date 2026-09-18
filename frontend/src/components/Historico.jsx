@@ -7,7 +7,7 @@ export default function Historico() {
 
     function buscarHistorico() {
 
-        fetch("http://127.0.0.1:5000/historico")
+        fetch("https://controle-de-alimentacao-pet.vercel.app/historico")
 
             .then(resposta => resposta.json())
 

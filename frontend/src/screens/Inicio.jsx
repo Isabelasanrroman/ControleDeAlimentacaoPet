@@ -36,7 +36,7 @@ export default function Inicio() {
 
     function verificarPet() {
 
-        fetch("http://127.0.0.1:5000/pet")
+        fetch("https://controle-de-alimentacao-pet.vercel.app/pet")
 
             .then(resposta => resposta.json())
 
@@ -58,7 +58,7 @@ export default function Inicio() {
 
     function liberarAlimentacao() {
 
-        fetch("http://127.0.0.1:5000/liberar", {
+        fetch("https://controle-de-alimentacao-pet.vercel.app/liberar", {
             method: "POST"
         })
 
@@ -86,7 +86,7 @@ export default function Inicio() {
 
     function recusarAlimentacao() {
 
-        fetch("http://127.0.0.1:5000/recusar", {
+        fetch("https://controle-de-alimentacao-pet.vercel.app/recusar", {
             method: "POST"
         })
 
@@ -274,7 +274,7 @@ export default function Inicio() {
 
                         <div className="banner-imagem">
 
-                           <img
+                            <img
                                 src={imagemPets}
                                 alt="Cachorro e gato"
                             />
