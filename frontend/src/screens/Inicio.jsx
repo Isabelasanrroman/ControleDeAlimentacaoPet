@@ -4,6 +4,7 @@ import Cabecalho from "../components/Cabecalho";
 import Botao from "../components/Botao";
 import Historico from "../components/Historico";
 
+import imagemPets from "../../assets/pets-banner.png";
 
 export default function Inicio() {
 
@@ -273,8 +274,8 @@ export default function Inicio() {
 
                         <div className="banner-imagem">
 
-                            <img
-                                src="/imagens/pets-banner.png"
+                           <img
+                                src={imagemPets}
                                 alt="Cachorro e gato"
                             />
 

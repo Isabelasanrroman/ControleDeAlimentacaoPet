@@ -10,8 +10,6 @@ app = Flask(__name__)
 
 CORS(app)
 
-criar_tabelas()
-
 
 @app.route("/")
 def inicio():
@@ -75,6 +73,8 @@ def historico():
 
 
 if __name__ == "__main__":
+
+    criar_tabelas()
 
     iniciar_mqtt()
 

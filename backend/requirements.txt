@@ -3,3 +3,4 @@ flask-cors
 paho-mqtt
 psycopg[binary]
 python-dotenv
+pytest
