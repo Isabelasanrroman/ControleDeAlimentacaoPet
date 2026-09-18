@@ -2029,605 +2029,713 @@ button {
    RESPONSIVIDADE - NOTEBOOKS
 ========================================================= */
 
-@media (max-width: 1200px) {
+/* =========================================================
+   RESPONSIVIDADE FINAL — CELULAR
+   SOMENTE MOBILE — DESKTOP ORIGINAL INTACTO
+========================================================= */
 
-    .cabecalho {
+@media (max-width: 650px) {
 
-        padding: 0 4%;
+    /* ==============================
+       BASE
+    ============================== */
+
+    html,
+    body,
+    #root {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
+    .pagina {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
     .conteudo {
-
-        padding-left: 22px;
-
-        padding-right: 22px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
+    /* ==============================
+       BANNER
+    ============================== */
+
+    .banner-principal {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
 
     .banner-conteudo {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
 
-        padding-left: 5%;
-
-        padding-right: 5%;
+        padding: 24px 20px 22px;
     }
-
 
     .banner-texto {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
 
-        width: 52%;
+    .banner-texto h2 {
+        max-width: 100%;
+        font-size: 24px;
+        line-height: 1.2;
+        overflow-wrap: break-word;
+    }
+
+    .banner-texto > p {
+        max-width: 100%;
+        font-size: 13px;
+        line-height: 1.5;
+        overflow-wrap: break-word;
     }
 
 
-    .banner-imagem {
+    /* ==============================
+       BENEFÍCIOS
+    ============================== */
 
-        width: 53%;
+    .beneficios {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+
+        left: 0;
+        right: 0;
     }
-
 
     .beneficio {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
 
-        padding: 0 12px;
+    .beneficio span,
+    .beneficio p {
+        min-width: 0;
+        overflow-wrap: break-word;
     }
 
 
-    .beneficio span {
-
-        font-size: 9px;
-    }
-
+    /* ==============================
+       ÁREA PRINCIPAL
+       NO CELULAR: UMA COLUNA
+    ============================== */
 
     .area-principal {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
 
-        grid-template-columns:
-            minmax(0, 1.5fr)
-            minmax(330px, 1fr);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 
+    .coluna-esquerda,
+    .coluna-direita {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    /* ==============================
+       CARD DE CONTROLE
+    ============================== */
+
+    .card-controle {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        padding: 20px;
+        overflow: hidden;
+    }
+
+
+    /* ==============================
+       IDENTIFICAÇÃO DO PET
+    ============================== */
+
+    .pet-identificacao {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        gap: 13px;
+    }
+
+    .pet-identificacao > div {
+        min-width: 0;
+    }
+
+
+    /* ==============================
+       SOLICITAÇÃO
+    ============================== */
+
+    .solicitacao-conteudo {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .solicitacao-texto {
+        flex: 1;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .solicitacao-texto h3 {
+        font-size: 16px;
+        line-height: 1.25;
+        overflow-wrap: break-word;
+    }
+
+    .solicitacao-texto p {
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: break-word;
+    }
+
+
+    /* ==============================
+       BOTÕES LIBERAR / RECUSAR
+    ============================== */
+
+    .botoes-alimentacao {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .botao-alimentacao {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        min-height: 52px;
+        padding: 8px 12px;
+
+        overflow: hidden;
+    }
+
+    .botao-alimentacao span {
+        min-width: 0;
+        overflow-wrap: break-word;
+    }
+
+
+    /* ==============================
+       CARD DE STATUS
+    ============================== */
+
+    .card-status {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .status-informacoes {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .status-info {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .status-info > i {
+        flex-shrink: 0;
+    }
+
+    .status-info div {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .status-info strong,
+    .status-info span {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+
+    /* ==============================
+       HISTÓRICO
+    ============================== */
+
+    .card-historico {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        overflow: hidden;
+    }
+
+    .titulo-historico {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .titulo-historico-esquerda {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .titulo-historico h2 {
+        min-width: 0;
+        max-width: 100%;
+
+        font-size: 17px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .ver-historico {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .lista-alimentacoes {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .item-alimentacao {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        overflow: hidden;
+    }
+
+    .alimentacao-pata {
+        flex-shrink: 0;
+    }
+
+    .alimentacao-info {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .alimentacao-info strong,
+    .alimentacao-info span {
+        display: block;
+
+        min-width: 0;
+        max-width: 100%;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .alimentacao-data {
+        flex-shrink: 0;
+        min-width: 58px;
+    }
+
+    .alimentacao-data strong,
+    .alimentacao-data span {
+        display: block;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .seta-historico {
+        flex-shrink: 0;
+    }
+
+
+    /* ==============================
+       RODAPÉ
+    ============================== */
+
+    .rodape {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .rodape > div {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .rodape p,
+    .rodape span {
+        overflow-wrap: break-word;
+    }
 }
 
 
 /* =========================================================
-   TABLETS
+   CELULARES PEQUENOS
 ========================================================= */
 
-@media (max-width: 950px) {
+@media (max-width: 400px) {
 
-    .cabecalho {
+    /* Banner */
 
-        min-height: 82px;
-
-        padding: 0 25px;
+    .banner-conteudo {
+        padding: 20px 16px;
     }
 
-
-    .logo-pata {
-
-        width: 48px;
-        height: 48px;
-    }
-
-
-    .logo-pata i {
-
-        font-size: 23px;
-    }
-
-
-    .logo-texto h1 {
-
+    .banner-texto h2 {
         font-size: 21px;
     }
 
+    .banner-texto > p {
+        font-size: 12px;
+    }
 
-    .logo-texto p {
 
+    /* Benefícios */
+
+    .beneficios {
+        gap: 6px;
+    }
+
+    .beneficio {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+
+    /* Controle */
+
+    .card-controle {
+        padding: 16px;
+    }
+
+    .pet-identificacao {
+        gap: 10px;
+    }
+
+    .solicitacao-conteudo {
+        gap: 9px;
+    }
+
+    .solicitacao-texto h3 {
+        font-size: 15px;
+    }
+
+    .solicitacao-texto p {
         font-size: 11px;
     }
 
 
-    .status-sistema {
+    /* Botões */
 
-        display: none;
+    .botoes-alimentacao {
+        gap: 8px;
+    }
+
+    .botao-alimentacao {
+        min-height: 50px;
+        padding: 7px 9px;
     }
 
 
-    .menu {
+    /* Status */
 
-        position: static;
+    .status-informacoes {
+        gap: 8px;
+    }
 
-        transform: none;
+    .status-info {
+        padding: 10px 8px;
+    }
 
-        margin-left: auto;
+    .status-info > i {
+        font-size: 17px;
     }
 
 
-    .banner-principal {
-
-        min-height: 400px;
-    }
-
-
-    .banner-conteudo {
-
-        min-height: 400px;
-
-        align-items: flex-start;
-
-        padding-top: 42px;
-    }
-
-
-    .banner-texto {
-
-        width: 58%;
-    }
-
-
-    .banner-texto h2 {
-
-        font-size: 48px;
-    }
-
-
-    .banner-imagem {
-
-        width: 54%;
-
-        right: -6%;
-
-        opacity: 0.85;
-    }
-
-
-    .frase-decorativa {
-
-        display: none;
-    }
-
-
-    .beneficios {
-
-        transform: scale(0.92);
-
-        transform-origin: left bottom;
-    }
-
-
-    .area-principal {
-
-        grid-template-columns: 1fr;
-    }
-
-
-    .coluna-direita {
-
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        align-items: start;
-    }
-
+    /* Histórico */
 
     .card-historico {
-
-        min-width: 0;
+        padding: 14px;
     }
 
+    .titulo-historico {
+        gap: 6px;
+    }
+
+    .titulo-historico h2 {
+        font-size: 15px;
+    }
+
+    .ver-historico {
+        font-size: 9px;
+    }
+
+    .item-alimentacao {
+        gap: 7px;
+        padding: 7px;
+    }
+
+    .alimentacao-pata {
+        width: 34px;
+        height: 34px;
+    }
+
+    .alimentacao-data {
+        min-width: 52px;
+    }
+
+    .seta-historico {
+        font-size: 9px;
+    }
+
+
+    /* Rodapé */
+
+    .rodape {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 }
 
-
 /* =========================================================
-   CELULAR
+   AJUSTE DO CABEÇALHO NO CELULAR
+   SOMENTE MOBILE
 ========================================================= */
 
 @media (max-width: 650px) {
 
     .cabecalho {
-
-        min-height: 75px;
-
-        padding: 10px 17px;
-    }
-
-
-    .logo-area {
-
-        gap: 9px;
-    }
-
-
-    .logo-pata {
-
-        width: 42px;
-        height: 42px;
-
-        border-radius: 13px;
-    }
-
-
-    .logo-pata i {
-
-        font-size: 20px;
-    }
-
-
-    .logo-texto h1 {
-
-        font-size: 17px;
-    }
-
-
-    .logo-texto p {
-
-        display: none;
-    }
-
-
-    .menu {
-
-        gap: 3px;
-    }
-
-
-    .menu-item {
-
-        padding: 9px 11px;
-
-        font-size: 11px;
-    }
-
-
-    .menu-item:nth-child(2) {
-
-        display: none;
-    }
-
-
-    .conteudo {
-
-        padding: 12px 13px 0;
-    }
-
-
-    .banner-principal {
-
-        min-height: 590px;
-
-        border-radius: 17px;
-    }
-
-
-    .banner-conteudo {
-
-        min-height: 590px;
-
-        padding: 28px 22px;
-
-        display: block;
-    }
-
-
-    .banner-texto {
-
         width: 100%;
-
-        position: relative;
-
-        z-index: 5;
-    }
-
-
-    .saudacao {
-
-        font-size: 17px;
-    }
-
-
-    .banner-texto h2 {
-
-        font-size: 42px;
-
-        letter-spacing: -1px;
-    }
-
-
-    .banner-texto > p {
-
-        font-size: 13px;
-
-        max-width: 350px;
-    }
-
-
-    .beneficios {
-
-        position: absolute;
-
-        left: 0;
-
-        right: 0;
-
-        bottom: 0;
-
-        width: 100%;
-
-        border-radius: 14px 14px 0 0;
-
-        justify-content: center;
-
-        padding: 10px 5px;
-
-        transform: none;
-    }
-
-
-    .beneficio {
-
-        padding: 0 8px;
-
-        gap: 6px;
-    }
-
-
-    .beneficio > i {
-
-        font-size: 18px;
-
-        width: 21px;
-    }
-
-
-    .beneficio strong {
-
-        font-size: 9px;
-    }
-
-
-    .beneficio span {
-
-        font-size: 7px;
-    }
-
-
-    .banner-imagem {
-
-        width: 100%;
-
-        height: 55%;
-
-        right: 0;
-
-        bottom: 42px;
-
-        align-items: flex-end;
-
-        justify-content: center;
-
-        opacity: 1;
-    }
-
-
-    .banner-imagem img {
-
-        width: 110%;
-
-        max-height: 300px;
-
-        object-position: center bottom;
-    }
-
-
-    .area-principal {
-
-        margin-top: 14px;
-
-        gap: 14px;
-    }
-
-
-    .card-controle {
-
-        padding: 17px;
-
-        border-radius: 16px;
-    }
-
-
-    .pet-foto {
-
-        width: 65px;
-        height: 65px;
-    }
-
-
-    .pet-informacoes h2 {
-
-        font-size: 25px;
-    }
-
-
-    .pet-informacoes p {
-
-        font-size: 12px;
-    }
-
-
-    .solicitacao {
-
-        padding: 15px;
-
-        min-height: 0;
-    }
-
-
-    .solicitacao-texto {
-
-        padding-right: 15px;
-    }
-
-
-    .solicitacao-texto h3 {
-
-        font-size: 17px;
-    }
-
-
-    .solicitacao-texto p {
-
-        font-size: 11px;
-    }
-
-
-    .botoes-alimentacao {
-
-        grid-template-columns: 1fr;
-
-        margin-left: 0;
-
-        gap: 9px;
-    }
-
-
-    .botao-alimentacao {
-
-        min-height: 62px;
-    }
-
-
-    .coluna-direita {
+        min-width: 0;
+        box-sizing: border-box;
 
         display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        flex-direction: column;
+        gap: 10px;
+        padding: 10px 14px;
     }
 
 
-    .status-informacoes {
+    /* LOGO */
 
-        grid-template-columns: 1fr 1fr;
+    .logo-area {
+        display: flex;
+        align-items: center;
+
+        min-width: 0;
+        flex: 1;
+
+        gap: 8px;
     }
 
+    .logo-area > i,
+    .logo-area .logo-icone {
+        width: 36px;
+        height: 36px;
 
-    .card-historico {
+        min-width: 36px;
 
-        padding: 14px;
-    }
-
-
-    .titulo-historico h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         font-size: 17px;
     }
 
+    .logo-texto {
+        min-width: 0;
+        flex: 1;
 
-    .ver-historico {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo-texto h1 {
+        margin: 0;
+
+        font-size: 15px;
+        line-height: 1.05;
+
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+
+        max-width: 135px;
+    }
+
+    .logo-texto span,
+    .logo-texto p {
+        font-size: 8px;
+        line-height: 1.2;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        max-width: 135px;
+    }
+
+
+    /* MENU */
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        flex-shrink: 0;
+
+        gap: 7px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
 
         font-size: 9px;
+        line-height: 1.1;
+
+        white-space: nowrap;
+
+        padding: 5px 3px;
     }
 
-
-    .item-alimentacao {
-
-        min-height: 56px;
+    .menu-item i {
+        font-size: 11px;
+        flex-shrink: 0;
     }
 
-
-    .alimentacao-data {
-
-        min-width: 65px;
-
-        padding-left: 7px;
+    .menu-item:last-child {
+        gap: 4px;
     }
 
-
-    .rodape {
-
-        min-height: 80px;
-
-        padding: 25px 18px 16px;
+    .menu-item:last-child i {
+        font-size: 8px;
     }
-
-
-    .rodape > div:first-child {
-
-        font-size: 16px;
-    }
-
-
-    .rodape > div:last-child {
-
-        display: none;
-    }
-
 }
 
 
 /* =========================================================
-   CELULARES MUITO PEQUENOS
+   CELULARES PEQUENOS
 ========================================================= */
 
 @media (max-width: 400px) {
 
-    .logo-texto h1 {
+    .cabecalho {
+        gap: 7px;
+        padding: 9px 11px;
+    }
+
+    .logo-area {
+        gap: 6px;
+    }
+
+    .logo-area > i,
+    .logo-area .logo-icone {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
 
         font-size: 15px;
     }
 
+    .logo-texto h1 {
+        font-size: 13px;
+        line-height: 1.05;
+
+        max-width: 112px;
+    }
+
+    .logo-texto span,
+    .logo-texto p {
+        font-size: 7px;
+        max-width: 112px;
+    }
+
+    .menu {
+        gap: 4px;
+    }
 
     .menu-item {
-
-        padding: 8px 9px;
-    }
-
-
-    .banner-texto h2 {
-
-        font-size: 36px;
-    }
-
-
-    .beneficio {
-
-        padding: 0 5px;
-    }
-
-
-    .beneficio span {
-
-        display: none;
-    }
-
-
-    .beneficio strong {
-
         font-size: 8px;
+        padding: 4px 2px;
     }
 
-
-    .banner-principal,
-    .banner-conteudo {
-
-        min-height: 530px;
+    .menu-item i {
+        font-size: 9px;
     }
-
-
-    .banner-imagem {
-
-        height: 48%;
-    }
-
-
-    .alimentacao-info span {
-
-        font-size: 8px;
-    }
-
-
-    .alimentacao-data {
-
-        min-width: 59px;
-    }
-
 }
