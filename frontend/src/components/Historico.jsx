@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+
 export default function Historico() {
 
     const [alimentacoes, setAlimentacoes] = useState([]);
@@ -19,7 +20,9 @@ export default function Historico() {
 
             .catch(() => {
 
-                console.log("Não foi possível carregar o histórico.");
+                console.log(
+                    "Não foi possível carregar o histórico."
+                );
 
             });
     }
@@ -29,11 +32,13 @@ export default function Historico() {
 
         buscarHistorico();
 
+
         const intervalo = setInterval(() => {
 
             buscarHistorico();
 
         }, 3000);
+
 
         return () => clearInterval(intervalo);
 
@@ -57,8 +62,7 @@ export default function Historico() {
                 </div>
 
                 <span className="ver-historico">
-                    Ver histórico
-                    <i className="fa-solid fa-arrow-right"></i>
+                    Histórico
                 </span>
 
             </div>
@@ -101,7 +105,7 @@ export default function Historico() {
                                 </strong>
 
                                 <span>
-                                    Alimentado com sucesso
+                                    Alimentação liberada
                                 </span>
 
                             </div>
@@ -120,7 +124,7 @@ export default function Historico() {
                             </div>
 
 
-                            <i className="fa-solid fa-chevron-right seta-historico"></i>
+                            <i className="fa-solid fa-check seta-historico"></i>
 
                         </div>
 

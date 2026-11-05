@@ -1,40 +1,16 @@
 import { useEffect, useState } from "react";
-
 import Cabecalho from "../components/Cabecalho";
-import Botao from "../components/Botao";
 import Historico from "../components/Historico";
 
-import imagemPets from "../../assets/pets-banner.png";
 
 export default function Inicio() {
 
     const [petDetectado, setPetDetectado] = useState(false);
 
-    const [mensagem, setMensagem] = useState("");
-
-    const [dataAtual, setDataAtual] = useState("");
-
-    const [horaAtual, setHoraAtual] = useState("");
+    const [alimentacoes, setAlimentacoes] = useState([]);
 
 
-    function atualizarDataHora() {
-
-        const agora = new Date();
-
-        const data = agora.toLocaleDateString("pt-BR");
-
-        const hora = agora.toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
-
-        setDataAtual(data);
-
-        setHoraAtual(hora);
-    }
-
-
-    function verificarPet() {
+    function buscarPet() {
 
         fetch("https://controle-de-alimentacao-pet.vercel.app/pet")
 
@@ -42,68 +18,40 @@ export default function Inicio() {
 
             .then(dados => {
 
-                setPetDetectado(dados.pet_detectado);
+                setPetDetectado(
+                    dados.pet_detectado
+                );
 
             })
 
             .catch(() => {
 
-                setMensagem(
-                    "Não foi possível conectar ao sistema."
+                console.log(
+                    "Não foi possível verificar o pet."
                 );
 
             });
     }
 
 
-    function liberarAlimentacao() {
+    function buscarHistorico() {
 
-        fetch("https://controle-de-alimentacao-pet.vercel.app/liberar", {
-            method: "POST"
-        })
-
-            .then(resposta => resposta.json())
-
-            .then(dados => {
-
-                setMensagem(
-                    dados.mensagem + " às " + dados.hora
-                );
-
-                setPetDetectado(false);
-
-            })
-
-            .catch(() => {
-
-                setMensagem(
-                    "Não foi possível liberar a alimentação."
-                );
-
-            });
-    }
-
-
-    function recusarAlimentacao() {
-
-        fetch("https://controle-de-alimentacao-pet.vercel.app/recusar", {
-            method: "POST"
-        })
+        fetch(
+            "https://controle-de-alimentacao-pet.vercel.app/historico"
+        )
 
             .then(resposta => resposta.json())
 
             .then(dados => {
 
-                setMensagem(dados.mensagem);
-
-                setPetDetectado(false);
+                setAlimentacoes(dados);
 
             })
 
             .catch(() => {
 
-                setMensagem(
-                    "Não foi possível recusar a alimentação."
+                console.log(
+                    "Não foi possível carregar o histórico."
                 );
 
             });
@@ -112,34 +60,29 @@ export default function Inicio() {
 
     useEffect(() => {
 
-        verificarPet();
+        buscarPet();
 
-        atualizarDataHora();
-
-
-        const intervaloPet = setInterval(() => {
-
-            verificarPet();
-
-        }, 2000);
+        buscarHistorico();
 
 
-        const intervaloHorario = setInterval(() => {
+        const intervalo = setInterval(() => {
 
-            atualizarDataHora();
+            buscarPet();
 
-        }, 1000);
+            buscarHistorico();
+
+        }, 3000);
 
 
-        return () => {
-
-            clearInterval(intervaloPet);
-
-            clearInterval(intervaloHorario);
-
-        };
+        return () => clearInterval(intervalo);
 
     }, []);
+
+
+    const ultimaAlimentacao =
+        alimentacoes.length > 0
+            ? alimentacoes[0]
+            : null;
 
 
     return (
@@ -152,11 +95,12 @@ export default function Inicio() {
             <main className="conteudo">
 
 
-                {/* BANNER PRINCIPAL */}
+                {/* BANNER */}
 
                 <section className="banner-principal">
 
                     <div className="banner-conteudo">
+
 
                         <div className="banner-texto">
 
@@ -171,43 +115,27 @@ export default function Inicio() {
                             </div>
 
 
-                            {petDetectado ? (
-
-                                <h2>
-                                    Seu pet está
-                                    <br />
-                                    por perto!
-                                </h2>
-
-                            ) : (
-
-                                <h2>
-                                    Seu pet sempre
-                                    <br />
-                                    bem alimentado!
-                                </h2>
-
-                            )}
+                            <h2>
+                                Seu pet sempre
+                                <br />
+                                bem alimentado!
+                            </h2>
 
 
                             <p>
-
-                                {petDetectado
-
-                                    ? "O sistema detectou seu pet no alimentador. Deseja liberar a alimentação?"
-
-                                    : "O sistema monitora a aproximação do seu pet e garante que ele receba a ração no momento certo, com segurança e praticidade."
-
-                                }
-
+                                O sistema monitora a aproximação
+                                do seu pet e libera a ração
+                                automaticamente no momento certo,
+                                com segurança e praticidade.
                             </p>
 
 
                             <div className="beneficios">
 
+
                                 <div className="beneficio">
 
-                                    <i className="fa-solid fa-shield-halved"></i>
+                                    <i className="fa-solid fa-shield-heart"></i>
 
                                     <div>
 
@@ -216,9 +144,8 @@ export default function Inicio() {
                                         </strong>
 
                                         <span>
-                                            Apenas com
-                                            <br />
-                                            sua autorização
+                                            Alimentação
+                                            automática
                                         </span>
 
                                     </div>
@@ -228,7 +155,7 @@ export default function Inicio() {
 
                                 <div className="beneficio">
 
-                                    <i className="fa-regular fa-heart"></i>
+                                    <i className="fa-solid fa-clock"></i>
 
                                     <div>
 
@@ -237,9 +164,8 @@ export default function Inicio() {
                                         </strong>
 
                                         <span>
-                                            Receba notificações
-                                            <br />
-                                            em tempo real
+                                            Funciona
+                                            automaticamente
                                         </span>
 
                                     </div>
@@ -249,7 +175,7 @@ export default function Inicio() {
 
                                 <div className="beneficio">
 
-                                    <i className="fa-solid fa-paw"></i>
+                                    <i className="fa-solid fa-heart"></i>
 
                                     <div>
 
@@ -258,29 +184,18 @@ export default function Inicio() {
                                         </strong>
 
                                         <span>
-                                            Alimentação na
-                                            <br />
-                                            hora certa
+                                            Respeita o
+                                            intervalo
                                         </span>
 
                                     </div>
 
                                 </div>
 
+
                             </div>
 
                         </div>
-
-
-                        <div className="banner-imagem">
-
-                            <img
-                                src={imagemPets}
-                                alt="Cachorro e gato"
-                            />
-
-                        </div>
-
 
                         <div className="frase-decorativa">
 
@@ -288,9 +203,10 @@ export default function Inicio() {
                             <br />
                             de você!
 
-                            <i className="fa-regular fa-heart"></i>
+                            <i className="fa-solid fa-heart"></i>
 
                         </div>
+
 
                     </div>
 
@@ -299,74 +215,76 @@ export default function Inicio() {
 
                 {/* ÁREA PRINCIPAL */}
 
-                <section className="area-principal">
+                <div className="area-principal">
 
 
-                    {/* CARD DO PET */}
+                    {/* CONTROLE */}
 
-                    <div className="card-controle">
+                    <div className="coluna-esquerda">
 
-
-                        <div className="pet-identificacao">
-
-                            <div className="pet-foto">
-
-                                <i className="fa-solid fa-paw"></i>
-
-                            </div>
+                        <section className="card-controle">
 
 
-                            <div className="pet-informacoes">
-
-                                <h2>
-                                    Seu Pet
-                                </h2>
-
-                                <p>
-                                    Alimentador inteligente
-                                </p>
-
-                                <div className="pet-online">
-
-                                    <span></span>
-
-                                    Online
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                            <div className="pet-identificacao">
 
 
-                        {/* SOLICITAÇÃO DE ALIMENTAÇÃO */}
+                                <div className="pet-foto">
 
-                        <div className="solicitacao">
-
-
-                            <div className="solicitacao-conteudo">
-
-                                <div className="solicitacao-icone">
-
-                                    <i className="fa-regular fa-bell"></i>
+                                    <i className="fa-solid fa-paw"></i>
 
                                 </div>
 
 
-                                <div className="solicitacao-texto">
+                                <div className="pet-informacoes">
+
+                                    <h2>
+                                        Seu Pet
+                                    </h2>
+
+                                    <p>
+                                        Alimentador inteligente
+                                    </p>
+
+
+                                    <span className="pet-online">
+
+                                        <span></span>
+
+                                        Online
+
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            {/* NOVO STATUS */}
+
+                            <div className="alimentacao-automatica">
+
+
+                                <div className="automatica-icone">
+
+                                    <i className="fa-solid fa-bowl-food"></i>
+
+                                </div>
+
+
+                                <div className="automatica-texto">
 
                                     {petDetectado ? (
 
                                         <>
 
                                             <h3>
-                                                Solicitação de Alimentação
+                                                Seu pet está por perto!
                                             </h3>
 
                                             <p>
-                                                O sensor detectou seu pet próximo do alimentador.
-                                                <br />
-                                                Deseja liberar a alimentação?
+                                                O sensor detectou seu pet
+                                                a menos de 10 cm.
                                             </p>
 
                                         </>
@@ -376,13 +294,12 @@ export default function Inicio() {
                                         <>
 
                                             <h3>
-                                                Aguardando seu pet
+                                                Alimentação automática
                                             </h3>
 
                                             <p>
-                                                O alimentador está pronto para a próxima refeição.
-                                                <br />
-                                                Aguarde seu pet se aproximar.
+                                                O alimentador está pronto
+                                                para a próxima refeição.
                                             </p>
 
                                         </>
@@ -392,97 +309,86 @@ export default function Inicio() {
                                 </div>
 
 
-                                <div className="solicitacao-fechar">
+                                <div
+                                    className={
+                                        petDetectado
+                                            ? "indicador-pet detectado"
+                                            : "indicador-pet"
+                                    }
+                                >
 
-                                    <i className="fa-solid fa-xmark"></i>
+                                    <span></span>
+
+                                    {petDetectado
+                                        ? "Pet detectado"
+                                        : "Aguardando pet"
+                                    }
 
                                 </div>
+
 
                             </div>
 
 
-                            {petDetectado && (
+                            {/* ÚLTIMA ALIMENTAÇÃO */}
 
-                                <div className="botoes-alimentacao">
-
-                                    <Botao
-                                        texto="Liberar"
-                                        tipo="liberar"
-                                        icone="fa-solid fa-check"
-                                        descricao="Permitir a alimentação"
-                                        aoClicar={liberarAlimentacao}
-                                    />
+                            <div className="ultima-alimentacao">
 
 
-                                    <Botao
-                                        texto="Recusar"
-                                        tipo="recusar"
-                                        icone="fa-solid fa-xmark"
-                                        descricao="Não liberar agora"
-                                        aoClicar={recusarAlimentacao}
-                                    />
+                                <div className="ultima-icone">
+
+                                    <i className="fa-regular fa-clock"></i>
 
                                 </div>
 
-                            )}
+
+                                <div className="ultima-texto">
+
+                                    <span>
+                                        Última alimentação
+                                    </span>
 
 
-                            {!petDetectado && (
-
-                                <div className="alimentador-pronto">
-
-                                    <div className="alimentador-icone">
-
-                                        <i className="fa-solid fa-bowl-food"></i>
-
-                                    </div>
-
-                                    <div>
+                                    {ultimaAlimentacao ? (
 
                                         <strong>
-                                            O alimentador está pronto para a próxima refeição.
+                                            {ultimaAlimentacao.data}
+                                            {" • "}
+                                            {ultimaAlimentacao.hora}
                                         </strong>
 
-                                        <span>
-                                            Aguarde seu pet se aproximar.
-                                        </span>
+                                    ) : (
 
-                                    </div>
+                                        <strong>
+                                            Nenhuma alimentação registrada
+                                        </strong>
+
+                                    )}
 
                                 </div>
 
-                            )}
 
-                        </div>
+                                <i className="fa-solid fa-check ultima-check"></i>
 
-
-                        {mensagem !== "" && (
-
-                            <div className="mensagem-sistema">
-
-                                <i className="fa-solid fa-circle-check"></i>
-
-                                <span>
-                                    {mensagem}
-                                </span>
 
                             </div>
 
-                        )}
+
+                        </section>
 
                     </div>
 
 
-                    {/* COLUNA DIREITA */}
+                    {/* DIREITA */}
 
                     <div className="coluna-direita">
 
 
-                        {/* STATUS */}
+                        <section className="card-status">
 
-                        <div className="card-status">
 
                             <div className="status-topo">
+
 
                                 <div className="status-check">
 
@@ -498,15 +404,17 @@ export default function Inicio() {
                                     </h3>
 
                                     <p>
-                                        Tudo certo com o seu alimentador.
+                                        Tudo certo com o alimentador.
                                     </p>
 
                                 </div>
+
 
                             </div>
 
 
                             <div className="status-informacoes">
+
 
                                 <div className="status-info">
 
@@ -515,11 +423,13 @@ export default function Inicio() {
                                     <div>
 
                                         <span>
-                                            Data atual
+                                            Última data
                                         </span>
 
                                         <strong>
-                                            {dataAtual}
+                                            {ultimaAlimentacao
+                                                ? ultimaAlimentacao.data
+                                                : "--/--/----"}
                                         </strong>
 
                                     </div>
@@ -534,34 +444,36 @@ export default function Inicio() {
                                     <div>
 
                                         <span>
-                                            Horário
+                                            Último horário
                                         </span>
 
                                         <strong>
-                                            {horaAtual}
+                                            {ultimaAlimentacao
+                                                ? ultimaAlimentacao.hora
+                                                : "--:--:--"}
                                         </strong>
 
                                     </div>
 
                                 </div>
 
+
                             </div>
 
-                        </div>
+                        </section>
 
-
-                        {/* HISTÓRICO */}
 
                         <Historico />
 
+
                     </div>
 
-                </section>
+
+                </div>
+
 
             </main>
 
-
-            {/* RODAPÉ */}
 
             <footer className="rodape">
 
@@ -570,23 +482,26 @@ export default function Inicio() {
                     <i className="fa-solid fa-paw"></i>
 
                     <span>
-                        Juntos por muitos momentos!
+                        Cuidando de quem depende de você
                     </span>
 
-                    <i className="fa-regular fa-heart"></i>
+                    <i className="fa-solid fa-heart"></i>
 
                 </div>
 
 
                 <div>
 
-                    <i className="fa-solid fa-paw"></i>
+                    <span>
+                        Alimentação automática
+                    </span>
 
-                    <i className="fa-regular fa-heart"></i>
+                    <i className="fa-solid fa-bowl-food"></i>
 
                 </div>
 
             </footer>
+
 
         </div>
     );

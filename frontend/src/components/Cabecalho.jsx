@@ -1,6 +1,7 @@
 export default function Cabecalho() {
 
     return (
+
         <header className="cabecalho">
 
             <div className="logo-area">
@@ -29,13 +30,23 @@ export default function Cabecalho() {
             <nav className="menu">
 
                 <div className="menu-item ativo">
+
                     <i className="fa-solid fa-house"></i>
-                    <span>Início</span>
+
+                    <span>
+                        Início
+                    </span>
+
                 </div>
 
                 <div className="menu-item">
+
                     <i className="fa-regular fa-clock"></i>
-                    <span>Histórico</span>
+
+                    <span>
+                        Histórico
+                    </span>
+
                 </div>
 
             </nav>
@@ -45,12 +56,15 @@ export default function Cabecalho() {
 
                 <i className="fa-solid fa-wifi"></i>
 
-                <span>Sistema Online</span>
+                <span>
+                    Sistema Online
+                </span>
 
                 <span className="status-bolinha"></span>
 
             </div>
 
         </header>
+
     );
 }

@@ -1,14 +1,45 @@
+
 from flask import Flask, jsonify
 from flask_cors import CORS
+
 import mqtt
-from mqtt import iniciar_mqtt, enviar_comando
-from database import criar_tabelas, salvar_alimentacao, buscar_alimentacoes
-from datetime import datetime
+
+from database import (
+    criar_tabelas,
+    salvar_alimentacao,
+    buscar_alimentacoes,
+    verificar_intervalo
+)
 
 
 app = Flask(__name__)
 
 CORS(app)
+
+
+# Evita executar a migração em todas as requisições
+# durante a mesma execução do backend.
+
+banco_inicializado = False
+
+
+def preparar_banco():
+
+    global banco_inicializado
+
+    if not banco_inicializado:
+
+        criar_tabelas()
+
+        banco_inicializado = True
+
+
+@app.after_request
+def evitar_cache(resposta):
+
+    resposta.headers["Cache-Control"] = "no-store"
+
+    return resposta
 
 
 @app.route("/")
@@ -17,34 +48,48 @@ def inicio():
     return "Sistema de Controle de Alimentacao Pet"
 
 
-@app.route("/liberar", methods=["POST"])
-def liberar():
+# CONSULTAR SE PODE ALIMENTAR
 
-    enviar_comando("liberar")
+@app.route("/pode-alimentar", methods=["GET"])
+def pode_alimentar():
 
-    agora = datetime.now()
+    preparar_banco()
 
-    data = agora.strftime("%d/%m/%Y")
-    hora = agora.strftime("%H:%M:%S")
+    resultado = verificar_intervalo()
 
-    salvar_alimentacao(data, hora)
+    return jsonify(resultado)
+
+
+# REGISTRAR ALIMENTAÇÃO
+
+@app.route("/registrar-alimentacao", methods=["POST"])
+def registrar_alimentacao():
+
+    preparar_banco()
+
+    # Confere novamente o intervalo antes de registrar.
+
+    verificacao = verificar_intervalo()
+
+    if not verificacao["autorizado"]:
+
+        return jsonify({
+            "mensagem": "Alimentacao bloqueada.",
+            "autorizado": False,
+            "segundos_restantes": verificacao["segundos_restantes"]
+        }), 429
+
+    alimentacao = salvar_alimentacao()
 
     return jsonify({
-        "mensagem": "Alimentacao liberada",
-        "data": data,
-        "hora": hora
+        "mensagem": "Alimentacao registrada com sucesso.",
+        "id": alimentacao["id"],
+        "data": alimentacao["data"],
+        "hora": alimentacao["hora"]
     })
 
 
-@app.route("/recusar", methods=["POST"])
-def recusar():
-
-    enviar_comando("recusar")
-
-    return jsonify({
-        "mensagem": "Alimentacao recusada"
-    })
-
+# VERIFICAR SE O PET ESTÁ PERTO
 
 @app.route("/pet", methods=["GET"])
 def verificar_pet():
@@ -56,8 +101,12 @@ def verificar_pet():
     })
 
 
+# HISTÓRICO DE ALIMENTAÇÕES
+
 @app.route("/historico", methods=["GET"])
 def historico():
+
+    preparar_banco()
 
     alimentacoes = buscar_alimentacoes()
 
@@ -76,8 +125,8 @@ def historico():
 
 if __name__ == "__main__":
 
-    criar_tabelas()
+    preparar_banco()
 
-    iniciar_mqtt()
+    mqtt.iniciar_mqtt()
 
     app.run(debug=False)
